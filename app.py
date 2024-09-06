@@ -19,6 +19,8 @@ file = st.file_uploader("Upload Video", type=["mp4", "mov", "avi", "mkv"])
 
 if file:
     with st.spinner("Processing your video..."):
+        temp_filename = None
+        audio_path = None
         try:
             # Create a temporary file for the uploaded video
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_file:
@@ -45,7 +47,7 @@ if file:
 
         finally:
             # Clean up temporary files
-            if os.path.exists(temp_filename):
+            if temp_filename and os.path.exists(temp_filename):
                 os.remove(temp_filename)
-            if os.path.exists(audio_path):
+            if audio_path and os.path.exists(audio_path):
                 os.remove(audio_path)
